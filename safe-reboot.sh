@@ -4,6 +4,8 @@ echo "Stopping system services..."
 systemctl stop smbd
 systemctl stop minio
 systemctl stop apache2
+systemctl stop netatalk
+systemctl stop avahi-daemon
 
 echo "Exporting ZFS mounts..."
 zpool export tank

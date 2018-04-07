@@ -18,5 +18,7 @@ echo "Starting system services..."
 systemctl start smbd
 systemctl start minio
 systemctl start apache2
+systemctl start avahi-daemon
+systemctl start netatalk
 
 echo "Done!"
