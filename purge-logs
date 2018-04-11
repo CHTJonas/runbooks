@@ -1,0 +1,49 @@
+#!/bin/bash
+
+echo "WARNING WARNING WARNING!!!"
+read -p "Purge all logs in /var/log? " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  truncate -s 0 /var/log/apache2.log
+  truncate -s 0 /var/log/acpid.log
+  truncate -s 0 /var/log/ntpd.log
+  truncate -s 0 /var/log/cron.log
+  truncate -s 0 /var/log/sshd.log
+  truncate -s 0 /var/log/dbus.log
+  truncate -s 0 /var/log/smbd.log
+  truncate -s 0 /var/log/ufw.log
+  truncate -s 0 /var/log/datadog.log
+  truncate -s 0 /var/log/afpd.log
+  truncate -s 0 /var/log/zfs-auto-snap.log
+  truncate -s 0 /var/log/systemd.log
+  truncate -s 0 /var/log/sessions.log
+  truncate -s 0 /var/log/rsyslog.log
+  truncate -s 0 /var/log/smartd.log
+  truncate -s 0 /var/log/minio.log
+  truncate -s 0 /var/log/sudo.log
+  truncate -s 0 /var/log/sudo.log
+  truncate -s 0 /var/log/auth.log
+  truncate -s 0 /var/log/auth.log
+  truncate -s 0 /var/log/cron.log
+  truncate -s 0 /var/log/daemon.log
+  truncate -s 0 /var/log/kern.log
+  truncate -s 0 /var/log/lpr.log
+  truncate -s 0 /var/log/mail.log
+  truncate -s 0 /var/log/news.log
+  truncate -s 0 /var/log/user.log
+  truncate -s 0 /var/log/syslog
+
+  truncate -s 0 /var/log/apache2/*
+  truncate -s 0 /var/log/apport.log
+  truncate -s 0 /var/log/apt/*
+  truncate -s 0 /var/log/datadog/*
+  truncate -s 0 /var/log/dpkg.log
+  truncate -s 0 /var/log/alternatives.log
+  truncate -s 0 /var/log/samba/*
+  truncate -s 0 /var/log/unattended-upgrades/*
+
+  find /var/log -type f -name '*.log.[0-99]' -exec rm {} +
+  find /var/log -type f -name '*.log.[0-99].gz' -exec rm {} +
+
+  invoke-rc.d rsyslog rotate
+fi
