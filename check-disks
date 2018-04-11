@@ -24,7 +24,7 @@ for t in "$@"; do
                 sleep $(($a))m
 
         for hd in /dev/disk/by-id/ata*; do
-                smartctl -l $l -d ata $hd 2>&1 >> smart-logs/smart-${t}-${hd##*/}.log
+                smartctl -l $l -d ata $hd 2>&1 >> /var/log/check-disks-script/smart-${t}-${hd##*/}.log
         done
 
 done
