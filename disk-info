@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 [ ! "$@" ] && echo "Usage: $0 /dev/sdx"
 for disk in "$@"; do

@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 cryptsetup luksHeaderBackup /dev/disk/by-uuid/f3e2829d-df79-4982-bda2-c3c033020d7f --header-backup-file /mnt/backup/luks_header_backup_vault1.img
 cryptsetup luksHeaderBackup /dev/disk/by-uuid/e0372ce7-7454-460d-a44c-ec1f2815c60e --header-backup-file /mnt/backup/luks_header_backup_vault2.img

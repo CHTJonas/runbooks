@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 echo "Opening encrypted vaults..."
 cryptsetup luksOpen /dev/disk/by-uuid/f3e2829d-df79-4982-bda2-c3c033020d7f vault1

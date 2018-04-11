@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 
 echo "Stopping system services..."
 systemctl stop smbd
