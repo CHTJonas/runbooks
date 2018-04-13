@@ -16,6 +16,7 @@ zpool import tank
 
 echo "Starting system services..."
 systemctl start smbd
+systemctl start nmbd
 systemctl start minio
 systemctl start apache2
 systemctl start avahi-daemon
