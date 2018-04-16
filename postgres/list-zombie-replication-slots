@@ -1,0 +1,5 @@
+#!/bin/bash
+
+sudo -u postgres psql <<EOF
+select * from pg_replication_slots where NOT active
+EOF
