@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root"
+  exit 1
+fi
+
+# define ENV variables
+DATE=$(date "+%Y%m%d%H%M%S")
+HOST=$(hostname --fqdn)
+EMAIL="certs@charliejonas.co.uk"
+
+certbot renew --force-renewal --rsa-key-size 4096 --email $EMAIL --agree-tos --noninteractive
