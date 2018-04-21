@@ -1,0 +1,20 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root"
+  exit 1
+fi
+
+# define ENV variables
+DATE=$(date "+%Y%m%d%H%M%S")
+HOST=$(hostname --fqdn)
+DESTINATION="/mnt/backup"
+GPGKEY="22707ACC"
+
+umask 177
+
+FILES="/boot /etc /home /opt /root /usr/local /var/backups /var/crash /var/local /var/mail /var/opt /var/spool \
+/var/lib/integrit/known.cdb /var/lib/integrit/current.cdb /var/log/btmp /var/log/wtmp"
+
+tar -cpj --exclude='*/src/*' --exclude='*/backup/*' $FILES | \
+gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/$HOST.etc.$DATE.tar.bz2.gpg

@@ -1,0 +1,26 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root"
+  exit 1
+fi
+
+DATE=$(date "+%Y%m%d%H%M%S")
+zfs snapshot -r tank/admin@offsite-$DATE
+zfs send -pv tank/admin@offsite-$DATE | zfs recv -duvF offsite-backup
+
+DATE=$(date "+%Y%m%d%H%M%S")
+zfs snapshot -r tank/data@offsite-$DATE
+zfs send -pv tank/data/photo@offsite-$DATE | zfs recv -duvF offsite-backup
+zfs send -pv tank/data/radio@offsite-$DATE | zfs recv -duvF offsite-backup
+
+DATE=$(date "+%Y%m%d%H%M%S")
+zfs snapshot -r tank/homes@offsite-$DATE
+zfs send -pv tank/homes/charlie@offsite-$DATE | zfs recv -duvF offsite-backup
+zfs send -pv tank/homes/ian@offsite-$DATE | zfs recv -duvF offsite-backup
+zfs send -pv tank/homes/claire@offsite-$DATE | zfs recv -duvF offsite-backup
+zfs send -pv tank/homes/freddie@offsite-$DATE | zfs recv -duvF offsite-backup
+
+DATE=$(date "+%Y%m%d%H%M%S")
+zfs snapshot -r tank/projects@offsite-$DATE
+zfs send -pv tank/projects@offsite-$DATE | zfs recv -duvF offsite-backup

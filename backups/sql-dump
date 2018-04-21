@@ -1,0 +1,21 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root"
+  exit 1
+fi
+
+# define ENV variables
+DATE=$(date "+%Y%m%d%H%M%S")
+HOST=$(hostname --fqdn)
+DESTINATION="/mnt/backup"
+GPGKEY="22707ACC"
+
+umask 177
+DATABASES=( database1 database2 )
+
+for DBNAME in "${DATABASES[@]}"
+do
+  mysqldump --defaults-file=/root/.my.cnf --single-transaction --skip-lock-tables $DBNAME | \
+  bzip2 | gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/$HOST.$DBNAME.$DATE.sql.bz2.gpg
+done
