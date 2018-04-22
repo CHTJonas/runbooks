@@ -11,7 +11,7 @@ HOST=$(hostname --fqdn)
 DESTINATION="/mnt/backup"
 GPGKEY="22707ACC"
 
-umask 177
+umask 0377
 DATABASES=( database1 database2 )
 
 for DBNAME in "${DATABASES[@]}"

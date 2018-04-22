@@ -11,6 +11,6 @@ HOST=$(hostname --fqdn)
 DESTINATION="/mnt/backup"
 GPGKEY="22707ACC"
 
-umask 177
+umask 0377
 
 tar -cpj --exclude='/var/log/journal' /var/log | gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/$HOST.logs.$DATE.tar.bz2.gpg

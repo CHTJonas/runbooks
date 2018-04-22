@@ -11,7 +11,7 @@ HOST=$(hostname --fqdn)
 DESTINATION="/mnt/backup"
 GPGKEY="22707ACC"
 
-umask 177
+umask 0377
 
 tar --ignore-failed-read --one-file-system -cpj --exclude=$DESTINATION / | \
 gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/$HOST.root.$DATE.tar.bz2.gpg
