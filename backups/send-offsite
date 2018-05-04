@@ -5,22 +5,12 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-DATE=$(date "+%Y%m%d%H%M%S")
-zfs snapshot -r tank/admin@offsite-$DATE
-zfs send -pv tank/admin@offsite-$DATE | zfs recv -duvF offsite-backup
+FILESYSTEMS=( tank/admin tank/data/photo tank/data/radio tank/homes/charlie tank/homes/ian tank/homes/claire tank/homes/freddie tank/projects )
 
-DATE=$(date "+%Y%m%d%H%M%S")
-zfs snapshot -r tank/data@offsite-$DATE
-zfs send -pv tank/data/photo@offsite-$DATE | zfs recv -duvF offsite-backup
-zfs send -pv tank/data/radio@offsite-$DATE | zfs recv -duvF offsite-backup
-
-DATE=$(date "+%Y%m%d%H%M%S")
-zfs snapshot -r tank/homes@offsite-$DATE
-zfs send -pv tank/homes/charlie@offsite-$DATE | zfs recv -duvF offsite-backup
-zfs send -pv tank/homes/ian@offsite-$DATE | zfs recv -duvF offsite-backup
-zfs send -pv tank/homes/claire@offsite-$DATE | zfs recv -duvF offsite-backup
-zfs send -pv tank/homes/freddie@offsite-$DATE | zfs recv -duvF offsite-backup
-
-DATE=$(date "+%Y%m%d%H%M%S")
-zfs snapshot -r tank/projects@offsite-$DATE
-zfs send -pv tank/projects@offsite-$DATE | zfs recv -duvF offsite-backup
+for FILESYSTEM in "${FILESYSTEMS[@]}"
+do
+  PREV_SNAP=$(zfs list -t snapshot | grep $FILESYSTEM"@offsite" | tail -n 1 | cut -d " " -f1)
+  THIS_SNAP=$FILESYSTEM"@offsite-"$(date "+%Y%m%d%H%M%S")
+  zfs snapshot $THIS_SNAP
+  zfs send -pv -i $PREV_SNAP $THIS_SNAP | zfs recv -duvF offsite-backup
+done
