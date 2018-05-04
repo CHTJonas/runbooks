@@ -16,5 +16,5 @@ umask 0377
 FILES="/boot /etc /home /opt /root /usr/local /var/backups /var/crash /var/local /var/mail /var/opt /var/spool \
 /var/lib/integrit/known.cdb /var/lib/integrit/current.cdb /var/log/btmp /var/log/wtmp"
 
-tar -cpj --exclude='*/src/*' --exclude='*/backup/*' $FILES | \
+cd / && tar -cpj --exclude='*/src/*' --exclude='*/backup/*' $FILES | \
 gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/$HOST.etc.$DATE.tar.bz2.gpg
