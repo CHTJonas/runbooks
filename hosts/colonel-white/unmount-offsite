@@ -1,0 +1,10 @@
+#!/bin/bash
+
+echo "Exporting ZFS mount..."
+zpool export offsite-backup
+
+echo "Resealing encrypted vaults..."
+cryptsetup luksClose /dev/mapper/offsite-vault1
+cryptsetup luksClose /dev/mapper/offsite-vault2
+
+echo "Done!"

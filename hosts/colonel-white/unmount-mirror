@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Unmounting filesystem..."
+umount /dev/mapper/mirror-vault /mnt/mirror
+
+echo "Resealing encrypted vaults..."
+cryptsetup luksClose /dev/mapper/mirror-vault
+
+echo "Done!"

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+echo "Opening encrypted vaults..."
+cryptsetup luksOpen /dev/disk/by-uuid/52387494-54c6-4e71-98c9-1e7ca1375f69 mirror-vault
+
+echo "Mounting filesystem..."
+mount /dev/mapper/mirror-vault /mnt/mirror
+
+echo "Done!"
