@@ -6,7 +6,6 @@ if [[ $EUID -ne 0 ]]; then
 fi
 
 # define ENV variables
-DATE=$(date "+%Y%m%d%H%M%S")
 HOST=$(hostname --fqdn)
 EMAIL="certs@charliejonas.co.uk"
 

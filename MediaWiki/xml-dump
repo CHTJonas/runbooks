@@ -7,6 +7,7 @@ DESTINATION="/mnt/backup"
 GPGKEY="22707ACC"
 
 umask 177
+cd $WIKI_ROOT
 
 php maintenance/dumpBackup.php --full --include-files --logs --uploads | \
 bzip2 | gpg -e -r $GPGKEY -o $DESTINATION/$HOST.wiki-dump.$DATE.xml.bz2.gpg

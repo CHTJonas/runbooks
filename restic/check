@@ -1,0 +1,41 @@
+#!/bin/bash
+
+RESTIC_PATH="/opt/restic/restic"
+RESTIC_CA=" --cacert /root/.mc/certs/CAs/colonel-white.crt"
+RESTIC_REPO="-q -r s3:https://services.jonasfamily.org.uk:9000/restic"
+
+read -p "Initialise new repository? " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  $RESTIC_PATH $RESTIC_CA -q $RESTIC_REPO init
+fi
+
+read -p "Check repository for errors? " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO check
+fi
+
+read -p "Rebuild repository indexes? " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO rebuild-index
+fi
+
+read -p "Prune repository? " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO prune
+fi
+
+read -p "List snapshots? " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO snapshots
+fi
+
+read -p "Remove all exclusive locks? " -r
+if [[ $REPLY =~ ^[Yy]$ ]]
+then
+  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO unlock --remove-all
+fi

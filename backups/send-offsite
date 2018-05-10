@@ -5,9 +5,9 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-FILESYSTEMS=( tank/admin tank/data/photo tank/data/radio tank/homes/charlie tank/homes/ian tank/homes/claire tank/homes/freddie tank/projects )
+ZFS_FILESYSTEMS=( tank/admin tank/data/photo tank/data/radio tank/homes/charlie tank/homes/ian tank/homes/claire tank/homes/freddie tank/projects )
 
-for FILESYSTEM in "${FILESYSTEMS[@]}"
+for FILESYSTEM in "${ZFS_FILESYSTEMS[@]}"
 do
   PREV_SNAP=$(zfs list -t snapshot | grep $FILESYSTEM"@offsite" | tail -n 1 | cut -d " " -f1)
   THIS_SNAP=$FILESYSTEM"@offsite-"$(date "+%Y%m%d%H%M%S")
