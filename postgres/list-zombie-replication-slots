@@ -1,5 +1,10 @@
 #!/bin/bash
 
-sudo -u postgres psql <<EOF
+if [ "$(whoami)" != "postgres" ] ; then
+  echo "Script must be run as postgres user"
+  exit 1
+fi
+
+psql <<EOF
 select * from pg_replication_slots where NOT active
 EOF

@@ -1,6 +1,11 @@
 #!/bin/bash
 
-sudo -u postgres psql <<EOF
+if [ "$(whoami)" != "postgres" ] ; then
+  echo "Script must be run as postgres user"
+  exit 1
+fi
+
+psql <<EOF
 \x on
 SELECT blockingl.relation::regclass,
   blockeda.pid AS blocked_pid, blockeda.query as blocked_query,

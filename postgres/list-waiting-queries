@@ -1,6 +1,11 @@
 #!/bin/bash
 
-sudo -u postgres psql <<EOF
+if [ "$(whoami)" != "postgres" ] ; then
+  echo "Script must be run as postgres user"
+  exit 1
+fi
+
+psql <<EOF
 \x on
 SELECT pid, application_name, client_addr, query, age(clock_timestamp(), query_start) AS waiting_duration
 FROM pg_catalog.pg_stat_activity WHERE  waiting
