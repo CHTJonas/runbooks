@@ -1,0 +1,11 @@
+#!/bin/sh
+
+cd /var/backups || exit 1
+
+if [ -f /etc/samba/smbpasswd ]; then
+  if ! cmp -s smbpasswd.0 /etc/samba/smbpasswd ; then
+    cp -p /etc/samba/smbpasswd smbpasswd
+    chmod 600 smbpasswd
+    savelog -c 7 smbpasswd >/dev/null
+  fi
+fi

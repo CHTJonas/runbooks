@@ -1,0 +1,22 @@
+#!/bin/sh
+
+cd /var/backups || exit 1
+
+libdir="/var/lib/integrit"
+changed=no
+files="known current"
+
+for file in $files ; do
+  if ! cmp -s integrit-$file.0 $libdir/$file.cdb ; then
+    changed=yes
+    break;
+  fi
+done
+
+if [ "$changed" = "yes" ] ; then
+  for file in $files ; do
+    cp -p $libdir/$file.cdb integrit-$file
+    chmod 600 integrit-$file
+    savelog -c 7 integrit-$file >/dev/null
+  done
+fi
