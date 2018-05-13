@@ -1,5 +1,7 @@
 # Charlie's Run Books
 Lots of useful scripts to automate a lot of the work I do.
+These should really be rewritten to utilise some modern framework/stack like Chef or Puppet, but that's a future project.
+
 Everything here is MIT licensed so feel free to reuse any way you see fit.
 If you come up with a new script based on what's here that you think other people will like then please contribute it back to the community.
 
