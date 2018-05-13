@@ -1,0 +1,26 @@
+#!/usr/bin/python
+
+import sys
+import os
+from shutil import copy2
+
+if not len(sys.argv) == 3:
+  print("Usage: copy-truncate path/to/oldfile path/to/newfile")
+  exit(1)
+
+oldfile = sys.argv[1]
+newfile = sys.argv[2]
+
+if os.path.isfile(oldfile):
+  if not os.path.isfile(newfile):
+    # Copy
+    copy2(oldfile, newfile)
+    # Truncate
+    fh = open(oldfile, "w")
+    fh.close()
+  else:
+    print("Refusing to overwrite %s") % newfile
+    exit(1)
+else:
+  print("%s does not exist") % oldfile
+  exit(1)
