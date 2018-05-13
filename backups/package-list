@@ -3,7 +3,7 @@
 cd /var/backups || exit 1
 
 file=$(mktemp)
-dpkg --get-selections | grep -v deinstall > file
+dpkg --get-selections | grep -v deinstall > $file
 
 if ! diff packages.list.0 $file >/dev/null ; then
   cp -p $file packages.list
