@@ -1,5 +1,10 @@
 #!/bin/bash
 
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root"
+  exit 1
+fi
+
 echo "Opening encrypted vaults..."
 cryptsetup luksOpen /dev/disk/by-uuid/f3e2829d-df79-4982-bda2-c3c033020d7f vault1
 cryptsetup luksOpen /dev/disk/by-uuid/e0372ce7-7454-460d-a44c-ec1f2815c60e vault2
