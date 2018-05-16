@@ -23,6 +23,7 @@ echo "Starting system services..."
 systemctl start smbd
 systemctl start nmbd
 systemctl start minio
+systemctl start rest-server
 systemctl start apache2
 systemctl start avahi-daemon
 systemctl start netatalk
