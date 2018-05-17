@@ -6,13 +6,20 @@ Everything here is MIT licensed so feel free to reuse any way you see fit.
 If you come up with a new script based on what's here that you think other people will like then please contribute it back to the community.
 
 # Installation
-Clone the repo and you're all set to go! I usually tend to run something like:
+To clone the repo I usually tend to run something along the lines of:
 ```
 git clone https://github.com/CHTJonas/runbooks.git /usr/local/scripts
 ```
 
 # Setup
-*Coming soon...*
+1. `cd /usr/local/scripts`
+2. `echo "friendly-machine-nickname" > name`
+3. `cp secrets/example secrets/friendly-machine-nickname`
+4. `nano secrets/friendly-machine-nickname`
+5. You're away!
+
+If you're really clever you could even setup a submodule for the secrets directory to share it across multiple machines and track changes!
+If you do then make sure the repository resides somewhere safe & secure on a server you own ie. *NOT* on GitHub or GitLab (not even private repos).
 
 # Contributing
 Bug reports and feature suggestrions can go to GitHub [issues](https://github.com/CHTJonas/roomballot/issues).
@@ -26,3 +33,4 @@ If you want to make a contribution yourself:
 # Contributors
 Thanks to the following people and organisations who've helped contribute to this repository:
 * [GitLab](https://gitlab.com/gitlab-com/runbooks)
+* [Ubuntu Community](https://help.ubuntu.com/community)
