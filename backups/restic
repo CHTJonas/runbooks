@@ -6,4 +6,4 @@ source $(dirname $0)/../secrets/$NAME
 RESTIC="restic --cacert $RESTIC_CERT_PATH"
 REPO="-r rest:https://$RESTIC_HTTP_USER:$RESTIC_HTTP_PASS@$RESTIC_SERVER:8000/$RESTIC_HTTP_USER/"
 
-$RESTIC -q $REPO backup --one-file-system $RESTIC_BACKUP_PATH
+$RESTIC $RESTIC_QUIET $REPO backup --one-file-system $RESTIC_BACKUP_PATH
