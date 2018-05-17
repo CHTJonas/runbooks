@@ -1,5 +1,8 @@
 # Ignore host secrets
 secrets/*
 
+# Ignore host friendly name file
+name
+
 # Ignore nano lock files
 *.swp
