@@ -1,0 +1,13 @@
+#!/bin/bash
+
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root"
+  exit 1
+fi
+
+NAME=`cat $(dirname $0)/../name`
+source $(dirname $0)/../secrets/$NAME
+
+/usr/bin/env ruby $(dirname $0)/zpool-helper export
+/usr/bin/env ruby $(dirname $0)/mounter.rb umount
+/usr/bin/env ruby $(dirname $0)/luks-helper.rb close
