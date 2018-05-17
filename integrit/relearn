@@ -5,7 +5,7 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-( exec $(dirname $0)/../backup/integrit-backup )
+$(dirname $0)/../backups/integrit-backup
 
 rm /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb
 /usr/sbin/integrit -C /etc/integrit/integrit.conf -u
