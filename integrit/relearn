@@ -5,7 +5,9 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-$(dirname $0)/../backups/integrit-backup
+scriptdir=`dirname $(readlink -f $0)`
+
+$scriptdir/../backups/integrit-backup
 
 rm /var/lib/integrit/current.cdb /var/lib/integrit/known.cdb
 /usr/sbin/integrit -C /etc/integrit/integrit.conf -u
