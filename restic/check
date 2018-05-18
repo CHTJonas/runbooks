@@ -1,41 +1,46 @@
 #!/bin/bash
 
-RESTIC_PATH="/opt/restic/restic"
-RESTIC_CA=" --cacert /root/.mc/certs/CAs/colonel-white.crt"
-RESTIC_REPO="-q -r s3:https://services.jonasfamily.org.uk:9000/restic"
+scriptdir=`dirname $(readlink -f $0)`
+NAME=$(cat $scriptdir/../name)
+source $scriptdir/../secrets/$NAME
+
+RESTIC="restic --cacert $RESTIC_CERT_PATH"
+REPO="-r rest:https://$RESTIC_HTTP_USER:$RESTIC_HTTP_PASS@$RESTIC_SERVER:8000/$RESTIC_HTTP_USER/"
+
+# Note: this script must be run interactively so we deliberately ignore $RESTIC_QUIET
 
 read -p "Initialise new repository? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC_PATH $RESTIC_CA -q $RESTIC_REPO init
+  $RESTIC $REPO init
 fi
 
 read -p "Check repository for errors? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO check
+  $RESTIC $REPO check
 fi
 
 read -p "Rebuild repository indexes? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO rebuild-index
+  $RESTIC $REPO rebuild-index
 fi
 
 read -p "Prune repository? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO prune
+  $RESTIC $REPO prune
 fi
 
 read -p "List snapshots? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO snapshots
+  $RESTIC $REPO snapshots
 fi
 
 read -p "Remove all exclusive locks? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC_PATH $RESTIC_CA $RESTIC_REPO unlock --remove-all
+  $RESTIC $REPO unlock --remove-all
 fi
