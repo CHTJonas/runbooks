@@ -5,42 +5,42 @@ NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
 
 RESTIC="restic --cacert $RESTIC_CERT_PATH"
-REPO="-r rest:https://$RESTIC_HTTP_USER:$RESTIC_HTTP_PASS@$RESTIC_SERVER:8000/$RESTIC_HTTP_USER/"
+export RESTIC_REPOSITORY="rest:https://$RESTIC_HTTP_USER:$RESTIC_HTTP_PASS@$RESTIC_SERVER:8000/$RESTIC_HTTP_USER/"
 
 # Note: this script must be run interactively so we deliberately ignore $RESTIC_QUIET
 
 read -p "Initialise new repository? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC $REPO init
+  $RESTIC init
 fi
 
 read -p "Check repository for errors? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC $REPO check
+  $RESTIC check
 fi
 
 read -p "Rebuild repository indexes? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC $REPO rebuild-index
+  $RESTIC rebuild-index
 fi
 
 read -p "Prune repository? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC $REPO prune
+  $RESTIC prune
 fi
 
 read -p "List snapshots? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC $REPO snapshots
+  $RESTIC snapshots
 fi
 
 read -p "Remove all exclusive locks? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC $REPO unlock --remove-all
+  $RESTIC unlock --remove-all
 fi
