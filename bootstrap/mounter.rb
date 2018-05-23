@@ -7,7 +7,7 @@ mountpoints = ENV['mountpoints'].split(' ')
 raise 'Number of mappings not equal to number of mountpoints' unless mappings.length == mountpoints.length
 exit(0) if mappings.length == 0
 
-for i in 0..mappings.length
+for i in 0..mappings.length-1
   if ARGV[0] == 'mount'
     next if mountpoints[i] == 'none'
     @cmd = "mount /dev/mapper/#{mappings[i]} #{mountpoints[i]}"

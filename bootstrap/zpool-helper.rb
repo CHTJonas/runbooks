@@ -5,7 +5,7 @@ zpools = ENV['zpools'].split(' ')
 
 exit(0) if zpools.length == 0
 
-for i in 0..zpools.length
+for i in 0..zpools.length-1
   cmd = "zpool #{ARGV[0]} #{zpools[i]}"
   system(cmd)
 end
