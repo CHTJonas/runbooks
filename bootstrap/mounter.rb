@@ -11,7 +11,7 @@ for i in 0..mappings.length
   if ARGV[0] == 'mount'
     next if mountpoints[i] == 'none'
     @cmd = "mount /dev/mapper/#{mappings[i]} #{mountpoints[i]}"
-  elsif ARGV[0] == 'close'
+  elsif ARGV[0] == 'umount'
     next if mountpoints[i] == 'none'
     @cmd = "umount #{mountpoints[i]}"
   end
