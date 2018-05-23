@@ -9,6 +9,6 @@ scriptdir=`dirname $(readlink -f $0)`
 NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
 
-/usr/bin/env ruby $(dirname $0)/luks-helper.rb open
-/usr/bin/env ruby $(dirname $0)/mounter.rb mount
-/usr/bin/env ruby $(dirname $0)/zpool-helper.rb import
+/usr/bin/env ruby $scriptdir/luks-helper.rb open
+/usr/bin/env ruby $scriptdir/mounter.rb mount
+/usr/bin/env ruby $scriptdir/zpool-helper.rb import
