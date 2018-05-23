@@ -11,7 +11,7 @@ for i in 0..UUIDs.length
   if ARGV[0] == 'open'
     next if UUIDs[i] == 'nocrypt'
     @cmd = "cryptsetup luksOpen /dev/disk/by-uuid/#{UUIDs[i]} #{mappings[i]}"
-  elsif AGRV[0] == 'close'
+  elsif ARGV[0] == 'close'
     next if UUIDs[i] == 'nocrypt'
     @cmd = "cryptsetup luksClose /dev/mapper/#{mappings[i]}"
   end
