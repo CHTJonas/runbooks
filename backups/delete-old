@@ -8,10 +8,8 @@ fi
 scriptdir=`dirname $(readlink -f $0)`
 NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
-DATE=$(date "+%Y%m%d%H%M%S")
 
-FILES=`find $BACKUP_DESTINATION -ctime +2`
-exit 0
+FILES=$(find $BACKUP_DESTINATION -mtime +$BACKUP_RETENTION)
 for file in $FILES ; do
-  rm "$files";
+  rm -f "$file";
 done
