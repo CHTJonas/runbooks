@@ -6,5 +6,6 @@ source $scriptdir/../secrets/$NAME
 
 RESTIC="restic --cacert $RESTIC_CERT_PATH"
 export RESTIC_REPOSITORY="rest:https://$RESTIC_HTTP_USER:$RESTIC_HTTP_PASS@$RESTIC_SERVER:8000/$RESTIC_HTTP_USER/"
+EXCLUDE_FILE="$scriptdir/$NAME.excludes"
 
-$RESTIC backup $RESTIC_QUIET --one-file-system --hostname $NAME $RESTIC_BACKUP_PATH
+$RESTIC backup $RESTIC_QUIET --exclude-file=$EXCLUDE_FILE --hostname $NAME $RESTIC_BACKUP_PATH

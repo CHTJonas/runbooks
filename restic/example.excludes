@@ -1,0 +1,9 @@
+/proc
+/tmp
+/mnt
+/dev
+/sys
+/run
+/media
+/var/cache
+/home/*/.cache
