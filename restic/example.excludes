@@ -7,3 +7,4 @@
 /media
 /var/cache
 /home/*/.cache
+/var/lib/lxcfs
