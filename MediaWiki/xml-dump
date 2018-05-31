@@ -9,6 +9,8 @@ umask 177
 
 for WIKI_ROOT in "${WIKI_ROOTS[@]}"
 do
+  PHP_CMD="$(grep wgSitename $WIKI_ROOT/LocalSettings.php) echo \$wgSitename;"
+  WIKI_NAME=$(php -r "$PHP_CMD" | tr '[:upper:]' '[:lower:]' | tr ' ' -)
   php $WIKI_ROOT/maintenance/dumpBackup.php --full --include-files --logs --uploads | \
   bzip2 | gpg -e -r $GPGKEY -o $BACKUP_DESTINATION/$NAME.$WIKI_NAME.$DATE.xml.bz2.gpg
 done
