@@ -1,0 +1,33 @@
+#!/bin/bash
+
+scriptdir=`dirname $(readlink -f $0)`
+NAME=$(cat $scriptdir/../name)
+source $scriptdir/../secrets/$NAME
+
+if [ "$#" != "1" ]; then
+  echo "Usage: $0 [start|stop]"
+  exit 1
+fi
+
+case "$1" in
+  start)
+    for SERVICE in "${SERVICES[@]}"
+    do
+      echo "Starting $SERVICE..."
+      systemctl start $SERVICE
+    done
+  ;;
+
+  stop)
+    length=${#SERVICES[*]}
+    for (( i=$(( $length-1 )); i>=0; i-- ))
+    do
+      echo "Stopping ${SERVICES[$i]}..."
+      systemctl stop ${SERVICES[$i]}
+    done
+  ;;
+
+  *)
+    echo "Usage: $0 [start|stop]"
+    exit 1
+esac
