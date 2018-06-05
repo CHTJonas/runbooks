@@ -27,6 +27,13 @@ case "$1" in
     done
   ;;
 
+  status)
+    for SERVICE in "${SERVICES[@]}"
+    do
+      systemctl status $SERVICE
+    done
+  ;;
+
   *)
     echo "Usage: $0 [start|stop]"
     exit 1
