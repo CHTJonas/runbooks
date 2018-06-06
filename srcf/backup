@@ -1,0 +1,34 @@
+#!/bin/bash
+
+if [ "$(hostname -d)" != "srcf.net" ] ; then
+  echo "This script must be run on an SRCF server"
+  exit 1
+fi
+
+USER=$(whoami)
+SOCIETIES=`groups | sed "s/$(whoami) //g"`
+DESTINATION="/var/tmp"
+DESTINATION=$DESTINATION/$USER/backup
+GPGKEY="22707ACC"
+
+mkdir -p $DESTINATION && chmod 700 $DESTINATION
+umask 177
+
+FILES="/home/$USER /public/home/$USER"
+for soc in $SOCIETIES; do
+  srcf-soc-permfix $soc
+  sudo -u $soc srcf-soc-permfix $soc
+  FILES="$FILES /societies/$soc /public/societies/$soc"
+done
+tar --ignore-failed-read -cpj --exclude='**/tmp/**' $FILES | \
+gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/backup-archive.$(date "+%Y%m%d%H%M%S").tar.bz2.gpg
+
+DATABASES=$(mysql -e "show databases;" | grep -v "Database" | grep -v "information_schema")
+while read -r db; do
+  db_sanitised=$(echo "$db" | tr / _)
+  mysqldump --single-transaction $db | bzip2 | \
+  gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/$db_sanitised-dump.$(date "+%Y%m%d%H%M%S").sql.bz2.gpg
+done <<< "$DATABASES"
+
+echo "Backup files stored in $DESTINATION."
+echo "Now copy them off of the SRCF and delete the files in $DESTINATION afterwards!"
