@@ -9,7 +9,7 @@ scriptdir=`dirname $(readlink -f $0)`
 NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
 
-FILES=$(find $BACKUP_DESTINATION -mtime +$BACKUP_RETENTION)
+FILES=$(find $BACKUP_DESTINATION -mtime +$BACKUP_RETENTION | grep -v "luks_header_backup")
 for file in $FILES ; do
   rm -f "$file";
 done
