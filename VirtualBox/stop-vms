@@ -1,0 +1,15 @@
+#!/bin/bash
+
+if [ "$(whoami)" != "virtualbox" ] ; then
+  echo "Script must be run as virtualbox user"
+  exit 1
+fi
+
+scriptdir=`dirname $(readlink -f $0)`
+NAME=$(cat $scriptdir/../name)
+source $scriptdir/../secrets/$NAME
+
+for VM_NAME in "${VM_NAMES[@]}"
+do
+  VBoxManage controlvm $VM_NAME poweroff
+done
