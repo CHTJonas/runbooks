@@ -1,7 +1,7 @@
 #!/bin/bash
 
-if [ "$(whoami)" != "virtualbox" ] ; then
-  echo "Script must be run as virtualbox user"
+if [[ $EUID -ne 0 ]]; then
+  echo "This script must be run as root"
   exit 1
 fi
 
@@ -11,5 +11,5 @@ source $scriptdir/../secrets/$NAME
 
 for VM_NAME in "${VM_NAMES[@]}"
 do
-  VBoxManage controlvm $VM_NAME poweroff
+  sudo -u virtualbox VBoxManage controlvm $VM_NAME poweroff
 done
