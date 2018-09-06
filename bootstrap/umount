@@ -12,4 +12,5 @@ source $scriptdir/../secrets/$NAME
 /usr/bin/env ruby $scriptdir/zpool-helper.rb export
 /usr/bin/env ruby $scriptdir/mounter.rb umount
 /usr/bin/env ruby $scriptdir/luks-helper.rb close
+umount -a -t nfs
 iscsiadm -m node -U

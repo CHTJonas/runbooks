@@ -10,6 +10,7 @@ NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
 
 iscsiadm -m node -L
+mount -a -t nfs
 /usr/bin/env ruby $scriptdir/luks-helper.rb open
 /usr/bin/env ruby $scriptdir/mounter.rb mount
 /usr/bin/env ruby $scriptdir/zpool-helper.rb import
