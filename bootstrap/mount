@@ -9,7 +9,7 @@ scriptdir=`dirname $(readlink -f $0)`
 NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
 
-iscsiadm -m node -L
+iscsiadm -m node -l
 mount -a -t nfs
 /usr/bin/env ruby $scriptdir/luks-helper.rb open
 /usr/bin/env ruby $scriptdir/mounter.rb mount
