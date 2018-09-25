@@ -11,5 +11,5 @@ source $scriptdir/../secrets/$NAME
 
 for VM_NAME in "${VM_NAMES[@]}"
 do
-  sudo -u virtualbox VBoxManage controlvm $VM_NAME savestate
+  sudo -H -u virtualbox VBoxManage controlvm $VM_NAME savestate
 done
