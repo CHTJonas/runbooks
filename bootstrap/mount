@@ -13,4 +13,5 @@ iscsiadm -m node -l
 mount -a -t nfs
 /usr/bin/env ruby $scriptdir/luks-helper.rb open
 /usr/bin/env ruby $scriptdir/mounter.rb mount
+modprobe zfs
 /usr/bin/env ruby $scriptdir/zpool-helper.rb import
