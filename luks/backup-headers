@@ -16,10 +16,10 @@ umask 177
 
 for UUID in "${LUKS_UUIDS[@]}"
 do
-  cryptsetup luksHeaderBackup /dev/disk/by-uuid/$UUID --header-backup-file $DATE_$UUID.luks
+  cryptsetup luksHeaderBackup /dev/disk/by-uuid/$UUID --header-backup-file $NAME.luks-header-backup.$UUID.$DATE.img
 done
 
-for FILE in luks_header_backup_*.luks; do
+for FILE in *; do
   gpg --batch -r 22707ACC -o $BACKUP_DESTINATION/$FILE.gpg -e $FILE
   chmod 400 $BACKUP_DESTINATION/$FILE.gpg
 done
