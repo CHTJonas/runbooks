@@ -9,16 +9,17 @@ scriptdir=`dirname $(readlink -f $0)`
 NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
 TEMP=$(mktemp -d)
+DATE=$(date "+%Y%m%d%H%M%S")
 
 chmod 700 $TEMP && cd $TEMP
 umask 177
 
 for UUID in "${LUKS_UUIDS[@]}"
 do
-  cryptsetup luksHeaderBackup /dev/disk/by-uuid/$UUID --header-backup-file $UUID.luksheader
+  cryptsetup luksHeaderBackup /dev/disk/by-uuid/$UUID --header-backup-file $DATE_$UUID.luks
 done
 
-for FILE in luks_header_backup_*.img; do
+for FILE in luks_header_backup_*.luks; do
   gpg --batch -r 22707ACC -o $BACKUP_DESTINATION/$FILE.gpg -e $FILE
   chmod 400 $BACKUP_DESTINATION/$FILE.gpg
 done
