@@ -12,5 +12,6 @@ DATE=$(date "+%Y%m%d%H%M%S")
 
 umask 177
 
-tar -cpj --exclude="/var/log/journal" /var/log | \
+FILES="var/log"
+tar -C / -cpj --exclude="/var/log/journal" $FILES | \
 gpg --batch --compress-algo none -e -r $GPGKEY -o $BACKUP_DESTINATION/$NAME.logs.$DATE.tar.bz2.gpg

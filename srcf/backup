@@ -14,13 +14,13 @@ GPGKEY="22707ACC"
 mkdir -p $DESTINATION && chmod 700 $DESTINATION
 umask 177
 
-FILES="/home/$USER /public/home/$USER"
+FILES="home/$USER public/home/$USER"
 for soc in $SOCIETIES; do
   srcf-soc-permfix $soc
   sudo -u $soc srcf-soc-permfix $soc
   FILES="$FILES /societies/$soc /public/societies/$soc"
 done
-tar --ignore-failed-read -cpj --exclude='**/tmp/**' $FILES | \
+tar --ignore-failed-read -C / -cpj --exclude='**/tmp/**' $FILES | \
 gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/backup-archive.$(date "+%Y%m%d%H%M%S").tar.bz2.gpg
 
 DATABASES=$(mysql -e "show databases;" | grep -v "Database" | grep -v "information_schema")

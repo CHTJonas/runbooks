@@ -12,4 +12,5 @@ DATE=$(date "+%Y%m%d%H%M%S")
 
 umask 177
 
-tar -cpj /home /root | gpg --batch --compress-algo none -e -r $GPGKEY -o $BACKUP_DESTINATION/$NAME.homes.$DATE.tar.bz2.gpg
+FILES="home root"
+tar -C / -cpj $FILES | gpg --batch --compress-algo none -e -r $GPGKEY -o $BACKUP_DESTINATION/$NAME.homes.$DATE.tar.bz2.gpg
