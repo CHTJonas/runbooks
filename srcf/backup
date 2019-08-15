@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$(hostname -d)" != "srcf.net" ] ; then
   echo "This script must be run on an SRCF server"

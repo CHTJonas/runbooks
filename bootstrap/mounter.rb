@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 raise 'Process UID not root' unless Process.uid == 0
 raise 'Must specify mount/umount as argument' unless ARGV.length == 1 && ( ARGV[0] == 'mount' || ARGV[0] == 'umount' )
 

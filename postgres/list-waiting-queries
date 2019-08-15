@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ "$(whoami)" != "postgres" ] ; then
   echo "Script must be run as postgres user"

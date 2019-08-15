@@ -1,3 +1,5 @@
+#!/usr/bin/env ruby
+
 raise 'Process UID not root' unless Process.uid == 0
 raise 'Must specify open/close as argument' unless ARGV.length == 1 && ( ARGV[0] == 'open' || ARGV[0] == 'close' )
 
