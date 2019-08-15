@@ -12,7 +12,7 @@ source $scriptdir/../secrets/$NAME
 for FILESYSTEM in "${ZFS_FILESYSTEMS[@]}"
 do
   PREV_SNAP=$(zfs list -t snapshot | grep $FILESYSTEM"@offsite" | tail -n 1 | cut -d " " -f1)
-  THIS_SNAP=$FILESYSTEM"@offsite-"$(date "+%Y%m%d%H%M%S")
+  THIS_SNAP=$FILESYSTEM"@offsite-"$(date --utc "+%Y%m%d%H%M%S")
   zfs snapshot $THIS_SNAP
   zfs send -pv -i $PREV_SNAP $THIS_SNAP | zfs recv -duvF $ZFS_OFFSITE
 done

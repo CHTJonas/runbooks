@@ -5,4 +5,4 @@ if [[ $EUID -ne 0 ]]; then
   exit 1
 fi
 
-apt-clone clone $(hostname -f)-$(date "+%Y%m%d%H%M%S")
+apt-clone clone $(hostname -f)-$(date --utc "+%Y%m%d%H%M%S")

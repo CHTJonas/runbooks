@@ -9,7 +9,7 @@ scriptdir=`dirname $(readlink -f $0)`
 NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
 TEMP=$(mktemp -d)
-DATE=$(date "+%Y%m%d%H%M%S")
+DATE=$(date --utc "+%Y%m%d%H%M%S")
 
 chmod 700 $TEMP && cd $TEMP
 umask 177

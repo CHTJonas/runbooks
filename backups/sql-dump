@@ -3,7 +3,7 @@
 scriptdir=`dirname $(readlink -f $0)`
 NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
-DATE=$(date "+%Y%m%d%H%M%S")
+DATE=$(date --utc "+%Y%m%d%H%M%S")
 
 umask 177
 

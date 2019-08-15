@@ -21,13 +21,13 @@ for soc in $SOCIETIES; do
   FILES="$FILES /societies/$soc /public/societies/$soc"
 done
 tar --ignore-failed-read -C / -cpj --exclude='**/tmp/**' $FILES | \
-gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/backup-archive.$(date "+%Y%m%d%H%M%S").tar.bz2.gpg
+gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/backup-archive.$(date --utc "+%Y%m%d%H%M%S").tar.bz2.gpg
 
 DATABASES=$(mysql -e "show databases;" | grep -v "Database" | grep -v "information_schema")
 while read -r db; do
   db_sanitised=$(echo "$db" | tr / _)
   mysqldump --single-transaction $db | bzip2 | \
-  gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/$db_sanitised-dump.$(date "+%Y%m%d%H%M%S").sql.bz2.gpg
+  gpg --batch --compress-algo none -e -r $GPGKEY -o $DESTINATION/$db_sanitised-dump.$(date --utc "+%Y%m%d%H%M%S").sql.bz2.gpg
 done <<< "$DATABASES"
 
 echo "Backup files stored in $DESTINATION."
