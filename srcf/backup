@@ -9,7 +9,7 @@ USER=$(whoami)
 SOCIETIES=`groups | sed "s/$(whoami) //g"`
 DESTINATION="/var/tmp"
 DESTINATION=$DESTINATION/$USER/backup
-GPGKEY="22707ACC"
+GPGKEY="17079536"
 
 mkdir -p $DESTINATION && chmod 700 $DESTINATION
 umask 177
