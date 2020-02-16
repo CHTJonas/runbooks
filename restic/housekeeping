@@ -4,43 +4,42 @@ scriptdir=`dirname $(readlink -f $0)`
 NAME=$(cat $scriptdir/../name)
 source $scriptdir/../secrets/$NAME
 
-RESTIC="restic --cacert $RESTIC_CERT_PATH"
-export RESTIC_REPOSITORY="rest:https://$RESTIC_HTTP_USER:$RESTIC_HTTP_PASS@$RESTIC_SERVER:8000/$RESTIC_HTTP_USER/"
+export RESTIC_REPOSITORY="rest:https://$RESTIC_HTTP_USER:$RESTIC_HTTP_PASS@$RESTIC_SERVER/$RESTIC_HTTP_USER/"
 
 # Note: this script must be run interactively so we deliberately ignore $RESTIC_QUIET
 
 read -p "Initialise new repository? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC init
+  restic init
 fi
 
 read -p "Check repository for errors? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC check
+  restic check
 fi
 
 read -p "Rebuild repository indexes? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC rebuild-index
+  restic rebuild-index
 fi
 
 read -p "Prune repository? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC prune
+  restic prune
 fi
 
 read -p "List snapshots? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC snapshots
+  restic snapshots
 fi
 
 read -p "Remove all exclusive locks? " -r
 if [[ $REPLY =~ ^[Yy]$ ]]
 then
-  $RESTIC unlock --remove-all
+  restic unlock --remove-all
 fi
