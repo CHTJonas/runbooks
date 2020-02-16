@@ -11,8 +11,6 @@ source $scriptdir/../secrets/$NAME
 
 for FILESYSTEM in "${ZFS_FILESYSTEMS[@]}"
 do
-  PREV_SNAP=$(zfs list -t snapshot | grep $FILESYSTEM"@offsite" | tail -n 1 | cut -d " " -f1)
-  THIS_SNAP=$FILESYSTEM"@offsite-"$(date --utc "+%Y%m%d%H%M%S")
-  zfs snapshot $THIS_SNAP
-  zfs send -cpv -i $PREV_SNAP $THIS_SNAP | zfs recv -du $ZFS_OFFSITE
+  SNAP=$(zfs list -t snapshot | grep $FILESYSTEM | tail -n1 | cut -d " " -f1)
+  zfs send -cpv $SNAP | ssh $ZFS_MIRROR_HOST zfs recv -du $ZFS_MIRROR
 done
