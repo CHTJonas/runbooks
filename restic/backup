@@ -7,4 +7,4 @@ source $scriptdir/../secrets/$NAME
 export RESTIC_REPOSITORY="rest:https://$RESTIC_HTTP_USER:$RESTIC_HTTP_PASS@$RESTIC_SERVER/$RESTIC_HTTP_USER/"
 EXCLUDE_FILE="$scriptdir/$NAME.excludes"
 
-restic backup $RESTIC_QUIET --exclude-file=$EXCLUDE_FILE --host $NAME RESTIC_BACKUP_PATHS
+restic backup $RESTIC_QUIET --exclude-file=$EXCLUDE_FILE --host $NAME $RESTIC_BACKUP_PATHS
